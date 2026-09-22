@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    android:background="?attr/colorSurface">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="24dp">
+
+        <ImageView
+            android:id="@+id/ivSettingsLogo"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:src="@drawable/impilo23"
+            android:scaleType="centerInside"
+            android:layout_marginTop="16dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/tvSettingsTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Account Configuration"
+            android:textSize="26sp"
+            android:textStyle="bold"
+            android:textColor="?attr/colorOnSurface"
+            android:layout_marginTop="12dp"
+            app:layout_constraintTop_toBottomOf="@id/ivSettingsLogo"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tilSetUsername"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Full Name"
+            android:layout_marginTop="24dp"
+            style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+            app:errorEnabled="true"
+            app:layout_constraintTop_toBottomOf="@id/tvSettingsTitle">
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etSetUsername"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textPersonName" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tilSetWaterGoal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+            android:hint="Daily Water Target (ml)"
+            app:errorEnabled="true"
+            app:layout_constraintTop_toBottomOf="@id/tilSetUsername">
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etSetWaterGoal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="number" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tilSetWeightGoal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+            android:hint="Target Weight Goal (kg)"
+            app:errorEnabled="true"
+            app:layout_constraintTop_toBottomOf="@id/tilSetWaterGoal">
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etSetWeightGoal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="numberDecimal" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tilSetNewPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+            android:hint="Change Password (Optional)"
+            app:errorEnabled="true"
+            app:passwordToggleEnabled="true"
+            app:layout_constraintTop_toBottomOf="@id/tilSetWeightGoal">
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etSetNewPassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textPassword" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnSaveSettings"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:text="APPLY CONFIGURATIONS"
+            android:textSize="15sp"
+            android:layout_marginTop="16dp"
+            app:layout_constraintTop_toBottomOf="@id/tilSetNewPassword" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnLogout"
+            android:layout_width="match_parent"
+            android:layout_height="54dp"
+            android:text="SIGN OUT"
+            style="@style/Widget.Material3.Button.TextButton"
+            android:textColor="?attr/colorError"
+            android:layout_marginTop="12dp"
+            app:layout_constraintTop_toBottomOf="@id/btnSaveSettings" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
