@@ -8,9 +8,9 @@ This repository houses the fully functional Part 2 Prototype constructed for the
 
  Demonstration Video & Assets
 
-- Demonstration Video Link: [Click Here to View Video Presentation (YouTube Unlisted / Professional Voiceover)](https://www.youtube.com/)
-- Voiceover Scope Includes detailed visual data validation cross-checks covering the underlying SQLite persistence engine, Room data mapping definitions, Retrofit request interceptor states, and live API responses.
-
+- Demonstration Video Link: [Click Here to View Video Presentation (YouTube Unlisted )](https://youtu.be/yBSBGuG6j28?si=NTBhUT5JElkbROYF) Alternative link [Click here to view presentation video on Google drive](https://drive.google.com/file/d/1ASR8GXBpMRu60s_iFBE9t2Fvt-feCYI0/view?usp=drivesdk)
+- FIREBASE CONSOLE SCREENSHOT
+<img width="1836" height="1071" alt="Screenshot 2026-09-23 000230" src="https://github.com/user-attachments/assets/0411667c-f0d8-42c5-be16-e1874302dd0a" />
 
 
  Key Feature Implementations
