@@ -2,6 +2,7 @@ package com.example.impilo23.ui
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.impilo23.api.HealthDataResponse
@@ -33,6 +34,9 @@ class DashboardActivity : AppCompatActivity() {
     private var currentHeartRateLog = 0
     private var currentSysLog = 0
     private var currentDiaLog = 0
+    
+    private var userListener: ValueEventListener? = null
+    private var healthLogListener: ValueEventListener? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,7 +52,8 @@ class DashboardActivity : AppCompatActivity() {
         }
         currentUid = user.uid
 
-        loadFirebaseData()
+        // Start listening to cloud data immediately
+        startRealtimeListeners()
 
         binding.btnSettings.setOnClickListener {
             startActivity(Intent(this, SettingsActivity::class.java))
@@ -61,20 +66,23 @@ class DashboardActivity : AppCompatActivity() {
         binding.btnFetchApi.setOnClickListener {
             fetchRestApiData()
         }
-    }
 
-    override fun onResume() {
-        super.onResume()
-        if (currentUid.isNotEmpty()) {
-            loadFirebaseData()
+        binding.btnHealthFinder.setOnClickListener {
+            startActivity(Intent(this, HealthFinderActivity::class.java))
+        }
+
+        binding.btnPlantCare.setOnClickListener {
+            startActivity(Intent(this, PlantCareActivity::class.java))
         }
     }
 
-    private fun loadFirebaseData() {
+    private fun startRealtimeListeners() {
+        binding.loadingOverlay.visibility = View.VISIBLE
         val databaseRef = FirebaseDatabase.getInstance().reference
         val todayStr = getTodayDateString()
 
-        databaseRef.child("users").child(currentUid).addListenerForSingleValueEvent(object : ValueEventListener {
+        // 1. Listen for User Profile & Goals
+        userListener = databaseRef.child("users").child(currentUid).addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 if (snapshot.exists()) {
                     val name = snapshot.child("username").value?.toString() ?: "User"
@@ -82,32 +90,35 @@ class DashboardActivity : AppCompatActivity() {
                     
                     targetWaterMl = snapshot.child("targetWaterMl").value?.toString()?.toIntOrNull() ?: 2500
                     weightGoalKg = snapshot.child("weightGoalKg").value?.toString()?.toDoubleOrNull() ?: 70.0
-
-                    databaseRef.child("health_logs").child(currentUid).child(todayStr)
-                        .addListenerForSingleValueEvent(object : ValueEventListener {
-                            override fun onDataChange(logSnapshot: DataSnapshot) {
-                                if (logSnapshot.exists()) {
-                                    currentWaterLog = logSnapshot.child("waterMl").value?.toString()?.toIntOrNull() ?: 0
-                                    currentWeightLog = logSnapshot.child("weightKg").value?.toString()?.toDoubleOrNull() ?: 0.0
-                                    currentHeartRateLog = logSnapshot.child("heartRateBpm").value?.toString()?.toIntOrNull() ?: 0
-                                    currentSysLog = logSnapshot.child("bloodPressureSys").value?.toString()?.toIntOrNull() ?: 0
-                                    currentDiaLog = logSnapshot.child("bloodPressureDia").value?.toString()?.toIntOrNull() ?: 0
-                                } else {
-                                    currentWaterLog = 0
-                                    currentWeightLog = 0.0
-                                    currentHeartRateLog = 0
-                                    currentSysLog = 0
-                                    currentDiaLog = 0
-                                }
-                                updateUI()
-                            }
-
-                            override fun onCancelled(error: DatabaseError) {}
-                        })
+                    
+                    updateUI()
                 }
             }
-
             override fun onCancelled(error: DatabaseError) {}
+        })
+
+        // 2. Listen for Daily Health Logs
+        healthLogListener = databaseRef.child("health_logs").child(currentUid).child(todayStr).addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(logSnapshot: DataSnapshot) {
+                if (logSnapshot.exists()) {
+                    currentWaterLog = logSnapshot.child("waterMl").value?.toString()?.toIntOrNull() ?: 0
+                    currentWeightLog = logSnapshot.child("weightKg").value?.toString()?.toDoubleOrNull() ?: 0.0
+                    currentHeartRateLog = logSnapshot.child("heartRateBpm").value?.toString()?.toIntOrNull() ?: 0
+                    currentSysLog = logSnapshot.child("bloodPressureSys").value?.toString()?.toIntOrNull() ?: 0
+                    currentDiaLog = logSnapshot.child("bloodPressureDia").value?.toString()?.toIntOrNull() ?: 0
+                } else {
+                    currentWaterLog = 0
+                    currentWeightLog = 0.0
+                    currentHeartRateLog = 0
+                    currentSysLog = 0
+                    currentDiaLog = 0
+                }
+                updateUI()
+                binding.loadingOverlay.visibility = View.GONE
+            }
+            override fun onCancelled(error: DatabaseError) {
+                binding.loadingOverlay.visibility = View.GONE
+            }
         })
     }
 
@@ -130,42 +141,47 @@ class DashboardActivity : AppCompatActivity() {
         val sysStr = binding.etLogSys.text.toString().trim()
         val diaStr = binding.etLogDia.text.toString().trim()
 
-        if (waterStr.isNotEmpty()) {
-            if (ValidationUtils.isValidInt(waterStr)) {
-                currentWaterLog += waterStr.toInt()
-            }
+        if (waterStr.isEmpty() && weightStr.isEmpty() && hrStr.isEmpty() && sysStr.isEmpty() && diaStr.isEmpty()) {
+            Toast.makeText(this, "Please enter some data to save", Toast.LENGTH_SHORT).show()
+            return
         }
 
-        if (weightStr.isNotEmpty()) {
-            if (ValidationUtils.isValidDouble(weightStr)) {
-                currentWeightLog = weightStr.toDouble()
-            }
+        // We use local variables for calculations to avoid overwrite glitches
+        var newWater = currentWaterLog
+        var newWeight = currentWeightLog
+        var newHR = currentHeartRateLog
+        var newSys = currentSysLog
+        var newDia = currentDiaLog
+
+        if (waterStr.isNotEmpty() && ValidationUtils.isValidInt(waterStr)) {
+            newWater += waterStr.toInt()
         }
 
-        if (hrStr.isNotEmpty() && ValidationUtils.isValidInt(hrStr)) currentHeartRateLog = hrStr.toInt()
-        if (sysStr.isNotEmpty() && ValidationUtils.isValidInt(sysStr)) currentSysLog = sysStr.toInt()
-        if (diaStr.isNotEmpty() && ValidationUtils.isValidInt(diaStr)) currentDiaLog = diaStr.toInt()
+        if (weightStr.isNotEmpty() && ValidationUtils.isValidDouble(weightStr)) {
+            newWeight = weightStr.toDouble()
+        }
+
+        if (hrStr.isNotEmpty() && ValidationUtils.isValidInt(hrStr)) newHR = hrStr.toInt()
+        if (sysStr.isNotEmpty() && ValidationUtils.isValidInt(sysStr)) newSys = sysStr.toInt()
+        if (diaStr.isNotEmpty() && ValidationUtils.isValidInt(diaStr)) newDia = diaStr.toInt()
 
         val logMap = HashMap<String, Any>()
-        logMap["waterMl"] = currentWaterLog
-        logMap["weightKg"] = currentWeightLog
-        logMap["heartRateBpm"] = currentHeartRateLog
-        logMap["bloodPressureSys"] = currentSysLog
-        logMap["bloodPressureDia"] = currentDiaLog
+        logMap["waterMl"] = newWater
+        logMap["weightKg"] = newWeight
+        logMap["heartRateBpm"] = newHR
+        logMap["bloodPressureSys"] = newSys
+        logMap["bloodPressureDia"] = newDia
 
         val todayStr = getTodayDateString()
         FirebaseDatabase.getInstance().reference.child("health_logs").child(currentUid).child(todayStr)
             .setValue(logMap)
             .addOnSuccessListener {
                 Toast.makeText(this, "Health log updated successfully!", Toast.LENGTH_SHORT).show()
-                
                 binding.etLogWater.text?.clear()
                 binding.etLogWeight.text?.clear()
                 binding.etLogHeartRate.text?.clear()
                 binding.etLogSys.text?.clear()
                 binding.etLogDia.text?.clear()
-
-                updateUI()
             }
     }
 
@@ -205,5 +221,14 @@ class DashboardActivity : AppCompatActivity() {
 
     private fun getTodayDateString(): String {
         return SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date())
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        // Clean up listeners to prevent memory leaks
+        val databaseRef = FirebaseDatabase.getInstance().reference
+        val todayStr = getTodayDateString()
+        userListener?.let { databaseRef.child("users").child(currentUid).removeEventListener(it) }
+        healthLogListener?.let { databaseRef.child("health_logs").child(currentUid).child(todayStr).removeEventListener(it) }
     }
 }

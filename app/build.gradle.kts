@@ -40,11 +40,6 @@ dependencies {
     implementation(libs.androidx.core.ktx)
     implementation(libs.material)
     
-    // Room components
-    implementation(libs.room.runtime)
-    implementation(libs.room.ktx)
-    annotationProcessor(libs.room.compiler)
-    
     // Retrofit components
     implementation(libs.retrofit)
     implementation(libs.retrofit.gson)
