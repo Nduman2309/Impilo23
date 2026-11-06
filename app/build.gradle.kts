@@ -19,9 +19,19 @@ android {
             "androidx.test.runner.AndroidJUnitRunner"
     }
 
+    signingConfigs {
+        create("release") {
+            storeFile = file("C:/Users/Ndumi/keystores/impilo23-release.jks")
+            storePassword = "Ndumiso@2309"
+            keyAlias = "impilokey"
+            keyPassword = "Ndumiso@2309"
+        }
+    }
+
     buildTypes {
         release {
             isMinifyEnabled = false
+            signingConfig = signingConfigs.getByName("release")
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
