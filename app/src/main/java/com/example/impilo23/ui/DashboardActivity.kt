@@ -6,6 +6,7 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.example.impilo23.databinding.ActivityDashboardBinding
 import com.example.impilo23.ui.dialog.AnimatedCongratsDialog
+import com.example.impilo23.util.StreakManager
 import com.example.impilo23.util.XpManager
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
@@ -27,6 +28,12 @@ class DashboardActivity : AppCompatActivity() {
     private var userListener: ValueEventListener? = null
     private var healthLogListener: ValueEventListener? = null
 
+    private val xpObserver: (Int) -> Unit = { updatedXp ->
+        val level = XpManager.getLevel(updatedXp)
+        binding.tvXpVal.text = String.format(Locale.getDefault(), "%,d", updatedXp)
+        binding.tvUserSubtitle.text = "Level $level • Master Grower"
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityDashboardBinding.inflate(layoutInflater)
@@ -40,6 +47,13 @@ class DashboardActivity : AppCompatActivity() {
             return
         }
         currentUid = user.uid
+
+        // Dynamic Streak Calculation
+        val streak = StreakManager.getStreak(this)
+        binding.tvStreakVal.text = "$streak Days"
+
+        XpManager.addXpListener(xpObserver)
+        updateXpUI()
 
         startRealtimeListeners()
 
@@ -76,6 +90,8 @@ class DashboardActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
         updateXpUI()
+        val streak = StreakManager.getStreak(this)
+        binding.tvStreakVal.text = "$streak Days"
     }
 
     private fun updateXpUI() {
@@ -145,7 +161,6 @@ class DashboardActivity : AppCompatActivity() {
                     updateXpUI()
                     updateUI()
                 } else {
-                    // Initialize default profile node for Google SSO / new users
                     val userMap = HashMap<String, Any>()
                     userMap["username"] = auth.currentUser?.displayName ?: "Thabo"
                     userMap["email"] = auth.currentUser?.email ?: "sso_user@impilo.com"
@@ -186,6 +201,7 @@ class DashboardActivity : AppCompatActivity() {
 
     override fun onDestroy() {
         super.onDestroy()
+        XpManager.removeXpListener(xpObserver)
         val databaseRef = FirebaseDatabase.getInstance().reference
         val todayStr = getTodayDateString()
         userListener?.let { databaseRef.child("users").child(currentUid).removeEventListener(it) }

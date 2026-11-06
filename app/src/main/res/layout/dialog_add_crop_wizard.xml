@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_dialog_rounded">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="24dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Add Crop Wizard"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            android:textColor="@color/brand_forest_dark" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Enter crop details. The app will automatically match a picture from the web!"
+            android:textSize="13sp"
+            android:textColor="@color/brand_text_muted"
+            android:layout_marginTop="4dp" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tilCropName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+            android:hint="Crop Name (e.g. Tomatoes, Roses, Carrots, Mint)"
+            android:layout_marginTop="16dp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etCropName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textPersonName" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tilPatchLocation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+            android:hint="Patch Location (e.g. Backyard Patch)"
+            android:layout_marginTop="8dp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etPatchLocation"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="text"
+                android:text="Backyard Patch" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tilGrowthStage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+            android:hint="Growth Stage (e.g. Flowering Stage)"
+            android:layout_marginTop="8dp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etGrowthStage"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="text"
+                android:text="Germinating &amp; Growing" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tilDaysToHarvest"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+            android:hint="Days to Harvest (e.g. 14)"
+            android:layout_marginTop="8dp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etDaysToHarvest"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="number"
+                android:text="14" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnSubmitAddCrop"
+            android:layout_width="match_parent"
+            android:layout_height="54dp"
+            android:text="Find Picture &amp; Add Crop"
+            style="@style/Widget.Impilo.PillButton"
+            android:layout_marginTop="20dp" />
+    </LinearLayout>
+</ScrollView>

@@ -7,18 +7,27 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.impilo23.R
 import com.example.impilo23.databinding.ActivityChallengesBinding
 import com.example.impilo23.ui.dialog.AnimatedCongratsDialog
+import com.example.impilo23.util.StreakManager
 import com.example.impilo23.util.XpManager
 
 class ChallengesActivity : AppCompatActivity() {
     private lateinit var binding: ActivityChallengesBinding
     private var selectedTab = "DAILY" // DAILY, WEEKLY, BADGES
 
+    private val xpObserver: (Int) -> Unit = {
+        updateLevelHeader()
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityChallengesBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        XpManager.addXpListener(xpObserver)
         updateLevelHeader()
+
+        val streak = StreakManager.getStreak(this)
+        binding.tvStreakVal.text = "$streak Day Streak"
 
         // Tab Filters
         binding.tabDaily.setOnClickListener {
@@ -166,5 +175,10 @@ class ChallengesActivity : AppCompatActivity() {
                 binding.btnStartPlantingCh3.text = "View Badge"
             }
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        XpManager.removeXpListener(xpObserver)
     }
 }
