@@ -1,68 +1,115 @@
- IMPILO23 — Secure Personal Healthcare Tracker Prototype
-
-IMPILO23 is a comprehensive, client-safe health tracking platform engineered for high-integrity vital status logging, personal wellness target tracking, and asynchronous regional public health data metrics acquisition. 
-
-This repository houses the fully functional Part 2 Prototype constructed for the OPSC6312 Android Software Architecture curriculum.
-
-
-
- Demonstration Video & Assets
-
-- Demonstration Video Link: [Click Here to View Video Presentation (YouTube Unlisted )](https://youtu.be/yBSBGuG6j28?si=NTBhUT5JElkbROYF) Alternative link [Click here to view presentation video on Google drive](https://drive.google.com/file/d/1ASR8GXBpMRu60s_iFBE9t2Fvt-feCYI0/view?usp=drivesdk)
-- FIREBASE CONSOLE SCREENSHOT
-<img width="1836" height="1071" alt="Screenshot 2026-09-23 000230" src="https://github.com/user-attachments/assets/0411667c-f0d8-42c5-be16-e1874302dd0a" />
-
-
- Key Feature Implementations
-
-1. Secure Cryptographic Authentication Engine
-   - Implements strict onboarding forms equipped with input boundary filters.
-   - Encrypts account codes by employing SHA-256 hash digests mixed with independent random salts per user** via a custom platform-safe hex encoder, preventing standard data leakage.
-2. Interactive Daily Health Analytics Log
-   - Facilitates real-time aggregation of multi-layered categories: Water Intake values (ml), Measured Body Mass (kg), Heart Rate metrics (bpm), and Blood Pressure status (Sys/Dia).
-3. Asynchronous REST API Integration
-   - Utilizes Retrofit & Gson to connect dynamically to the `disease.sh` health statistics REST server.
-   - Asynchronously queries country names and populates complex responses securely without thread lock or UI freezing.
-4. Resilient Boundary Error Recovery
-   - Uses strict ViewBinding references combined with numerical pattern interceptors to safely handle null, negative, or alphanumeric format inputs without crashing.
-
-
-
-  Architectural Framework Design
-
-The system relies fully on the clean separation of concerns:
-- Presentation Layer (`com.example.impilo23.ui`): Manages Activities powered by reactive Material 3 View Components.
-- Business/Security Layer (`com.example.impilo23.crypto` / `.util`): Directs data validation structures and cryptographic encryption routines.
-- Data Persistence Layer (`com.example.impilo23.data`): Directs multi-entity Room database mappings with safe thread operations.
-- Remote Gateway Layer (`com.example.impilo23.api`): Manages Retrofit callback execution flows.
-
-
-  Automated CI/CD Pipeline
-
-Continuous Integration is driven natively by GitHub Action via `.github/workflows/build.yml`:
-- Installs an automated virtual stack running JDK 17 on every code check-in or request trigger.
-- Auto-runs core unit test suites to enforce code quality metrics.
-- Assembles a signed executable debug package (`app-debug.apk`) as a downloadable pipeline artifact.
+# 🌿 IMPILO23 SA — South African Health & Harvest Hub
+> **Final Portfolio of Evidence (PoE) Submission Release (`v1.0-final-poe`)**
+> *A modern, nature-inspired South African health & gardening lifestyle application built with Material Design 3, real-time cloud synchronization, cryptographic security, and custom 3D motion physics.*
 
 ---
 
-Code Attribution & Citations
+## 🎥 Demonstration Video & Submission Evidence
 
-- Google Room Database SDK Components: [Android Developer Documentation](https://developer.android.com/training/data-storage/room)
-- Retrofit HTTP Communication Framework Client: [Square Open Source Repository](https://square.github.io/retrofit/)
-- CI/CD Pipeline Build Actions: [GitHub Marketplace Automation Guide](https://github.com/marketplace/actions/automated-build-android-app-with-github-action)
-- All algorithms, logging implementations, and design matrices have been explicitly labeled with comprehensive developer code commentary.
+- 📽️ **Professional Demonstration Video (YouTube Unlisted)**: [Watch Demonstration Video](https://youtu.be/yBSBGuG6j28?si=NTBhUT5JElkbROYF)
+- 📁 **Alternative Video Link (Google Drive)**: [Watch on Google Drive](https://drive.google.com/file/d/1ASR8GXBpMRu60s_iFBE9t2Fvt-feCYI0/view?usp=drivesdk)
+- 🏷️ **GitHub Tagged Release**: `v1.0-final-poe`
+- 📱 **Signed Executable APK**: `app-debug.apk` (Generated via GitHub Actions CI/CD Pipeline)
 
-Executive Summary & Quantification of AI Usage
-Following the principles of academic integrity, this report highlights the particular use of AI assistance in the development of the IMPILO23 Healthcare Tracker App Prototype. In the overall development of the app prototype that includes planning, coding, interface design, and pipeline integration, the usage of the AI interfaces occupied approximately 12 percent of the overall work involved. The remaining 88 percent of application development, including design of Material 3 user interface screens, navigation flows, cloud data node structuring, visual design hierarchies, and professional voiceover demonstration testing, were performed independently by the developer.
-2. Detailed Breakdown of the 12% AI Contribution Areas
-The particular technical domains where AI support was integrated are categorized under these operational vectors:
-Ongoing Integration and Pipeline Setup (approx. 5%):
-AI was employed to create the standard structural YAML format needed to establish an automated continuous integration pipeline through GitHub Actions (.github/workflows/build.yml). The tool successfully set up an independent Ubuntu-latest software environment utilizing a Java Development Kit 17 (JDK 17) version to initiate background compilations and generate a test executable package (app-debug.apk) with each repository check-in.
-Dependency Conflict Analysis and Resolution (approx. 4%):
-Errors arose during build synchronization phases concerning plugin compatibility issues between the Jetpack Room local annotation processing engine (kapt) and the native build scripts of the project. AI was engaged to resolve the environmental stack trace issue. It recommended substituting the outdated kapt library references with native annotationProcessor configuration entries in the module-level build.gradle.kts file. This effectively eliminated the construction obstacles.
-Unit Testing Framework Adaptation (approx. 3%):
-During the creation of unit tests for the local JVM, the dependency utilities from the Android framework (such as android.util.Patterns and android.util.Log) threw null pointer exceptions at runtime since they were not mocked during testing. The solution to this problem was suggested by the AI assistant, whereby the ValidationUtils helper object verification was done using the Java built-in regular expressions. All automated unit tests were successfully compiled and passed without environment-related problems.
-3. Verification of Academic Integrity and Citation Policy
-All code segments or build scripts influenced by the 12% AI consultation window were manually audited, refactored to align with standard academic conventions, and documented with developer commentary. No proprietary logic or unverified scripts were introduced.
+---
 
+## 🚀 Part 3 Release Notes & Innovative Feature Updates
+
+This final PoE release builds upon the prototype foundation to deliver a fully integrated, commercial-grade graphic experience featuring **custom 3D animated components**, **real-time cloud state synchronization**, and **interactive wellness and harvest hubs**.
+
+### ✨ Major Updates Since Prototype:
+
+#### 1. 🎨 Material Design 3 Visual & Palette Overhaul
+- **Synced Design Tokens**: Soft Sage Green (`#E8F5E9`), Deep Forest Green (`#2D6A4F` / `#1B4332`), Warm Terracotta (`#FFF3E0` text `#E65100`), and Sky Water Blue (`#38BDF8`).
+- **Dark Mode Support**: Complete dark sage theme (`res/values-night/themes.xml`) maintaining calm nature aesthetic (`#121B14`, `#1B261D`).
+- **Custom Vector Icon Suite**: Handcrafted vectors for leaves, water drops, flames, stars, bells, meal icons, workouts, flower beds, and sparkles.
+
+#### 2. 🌀 Custom 3D Motion & Animated Physics Suite
+- **`ThreeDLeafParticleView.kt`**: Hardware-accelerated custom Canvas view rendering gently floating and 3D rotating leaf particles (Y-axis perspective tilt) across upper arched headers.
+- **`DimensionalProgressRing.kt`**: Multi-layered 3D circular progress view with radial gradient depth, soft drop shadow, and animated sweep fill (`75% of 2.5L target reached`).
+- **`BreathingCardView.kt`**: MaterialCardView subclass introducing a subtle 3D breathing float elevation animation (`2dp` to `6dp` pulsing).
+- **`ActivityBarChartView.kt`**: Weekly activity vertical bar chart (`M T W T F S S`) with rounded forest green columns.
+- **3D Micro-Interactions**:
+  - Tapping garden tasks on Dashboard triggers a **3D checkmark pop animation**.
+  - Watering crops in Garden Hub triggers a **3D growth scale pop & water drop particle effect**.
+  - Completing challenges triggers an **animated 3D XP crystal float burst**.
+
+#### 3. 🎯 Animated Success & Congratulations Dialogs
+- **Animated Green Tick Success Popup (`AnimatedSuccessDialog.kt`)**: Scale-overshoot bounce checkmark popup for:
+  - **Account Creation**: *"You have successfully created an account"*.
+  - **Sign In / Google SSO**: *"You have successfully signed in"*.
+- **Animated Congratulations Popup (`AnimatedCongratsDialog.kt`)**: Celebratory dialog displaying headline *"Congratulations! 🎉"*, task title, star badge, and reward tag (*"+50 XP Granted!"*).
+
+#### 4. 💎 Real-time Total XP System & Dynamic Streak Tracker
+- **Centralized `XpManager.kt`**: Single source of truth managing total XP in `SharedPreferences` and syncing with Firebase (`users/{uid}/totalXp`). Real-time observers dynamically update `tvXpVal` and level badges across all screens.
+- **`StreakManager.kt`**: Dynamically calculates and persists consecutive daily app activity (`🔥 8 Days` / `12 Day Streak`).
+
+#### 5. 🧑‍🌾 Interactive Add Crop Wizard & Web Image Matcher
+- **Add Crop Wizard (`dialog_add_crop_wizard.xml`)**: Modal form accepting Crop Name, Patch Location, Growth Stage, and Harvest Days.
+- **`CropImageResolver.kt`**: Automatically matches entered crop names (Tomatoes, Spinach, Carrots, Roses, Mint, Maize, Peppers, Lavender, Herbs) to high-resolution web picture URLs and botanical names (*Solanum lycopersicum*, *Rosa rubiginosa*, etc.).
+- **Crop Details Sheet (`dialog_crop_details.xml`)**: In-depth inspection modal displaying crop picture, botanical name, South African planting zone (*Zone 9b • South Africa*), growth stage, sunlight needs, soil pH, and watering schedule.
+
+#### 6. 🥗 Interactive Meal & Food Activity Logger (Health Hub)
+- **`dialog_log_activity.xml`**: Modal dialog allowing users to log meals/nutrition (*"Oatmeal & Berries"*, *"+350 Kcal"*) or workout sessions.
+- Dynamically inserts new cards into `Recent Logs`, updates `Kcal Burned` totals, and syncs to Firebase.
+
+#### 7. 📖 Masterclass Plant Care Guide & Smart Watering Calculator
+- **6 Interactive Chapters**: Soil & Compost, Smart Watering, Sunlight & Microclimates, Eco Pest Control, Pruning & Propagation, Harvest & Storage.
+- **Real-time Search Filter**: Filter care guides dynamically by typing keywords.
+- **Smart Watering Calculator**: Interactive crop selector calculating watering frequency for Greens, Herbs, and Succulents.
+
+---
+
+## 🔐 Core Technical & Security Architecture
+
+### 1. Single Sign-On (SSO) & Firebase Authentication
+- Features Google Single Sign-On (`btnGoogleSso`) alongside salted SHA-256 email/password login and password reset link dispatch (`sendPasswordResetEmail`).
+- Brand-new SSO users automatically have their profile nodes initialized in Firebase Realtime Database (`users/{uid}`).
+
+### 2. Cryptographic Security Engine (`PasswordHasher.kt`)
+- Employs **SHA-256 digest hashing** combined with **unique, independent 16-byte random salts** generated via `SecureRandom` per user to prevent rainbow table attacks.
+
+### 3. Offline Disk Persistence & Cloud Sync
+- Enabled via `FirebaseDatabase.getInstance().setPersistenceEnabled(true)` in `ImpiloApp.kt`.
+- Allows health logs, water intake, and garden crops to be written offline and automatically synchronized with Firebase when connection is restored.
+
+### 4. Multi-Language Support Readiness
+- Configured in `SettingsActivity` and `strings.xml` for **English**, **isiZulu**, **Sesotho**, and **Afrikaans**.
+
+### 5. Asynchronous REST API Telemetry & Health Finder
+- Utilizes `Retrofit` & `Gson` (`RetrofitClient.kt`) to query live global health statistics from `disease.sh`.
+- `HealthFinderActivity` maps regional health facility locations across major South African metropolitan areas (Cape Town, Johannesburg, Durban, Pretoria).
+
+---
+
+## ⚙️ Automated CI/CD Pipeline (GitHub Actions)
+
+Continuous Integration & Automated Testing is driven natively by GitHub Actions via `.github/workflows/build.yml`:
+
+- **Virtual Environment**: Runs on `ubuntu-latest` with Java Development Kit 17 (`JDK 17`).
+- **Automated Unit Testing**: Executes core JVM unit test suites (`SecurityValidationTest.kt`, `ValidationUtils`) on every push/pull request.
+- **Automated Artifact Generation**: Compiles and uploads signed debug executable packages (`app-debug.apk`) as pipeline artifacts.
+
+---
+
+## 🤖 AI Usage Write-Up & Citation
+
+### Summary & Quantification
+In accordance with academic integrity guidelines, AI tools (Gemini / Claude / Copilot) were utilized as an advisory and assistance tool, accounting for approximately **10% of total project effort**. The remaining **90% of architectural engineering, Material Design 3 component styling, 3D Canvas math, Firebase database structuring, and video demonstration voiceover** were executed independently by the developer.
+
+### Specific Contribution Areas (10% Total):
+1. **GitHub Actions Workflow Syntax (4%)**: Assisted in formatting the YAML matrix structure for `.github/workflows/build.yml` to establish JDK 17 environments and run automated Gradle test tasks.
+2. **3D Matrix Rotation Mathematics (3%)**: Consulted on standard Android `android.graphics.Camera` Y-axis rotation matrix operations inside `ThreeDLeafParticleView.kt` for perspective depth calculations.
+3. **Regex Boundary Validation Patterns (3%)**: Refactored email and numeric validation patterns in `ValidationUtils.kt` to ensure compatibility across JVM unit tests without needing Android framework mocking.
+
+---
+
+## 📚 Code Attribution & References
+
+- **Android Jetpack Compose & Material 3**: [Android Developer Documentation](https://developer.android.com/jetpack/compose)
+- **Firebase Android SDK & Realtime Database**: [Firebase Docs](https://firebase.google.com/docs/android/setup)
+- **Retrofit HTTP Framework**: [Square Open Source](https://square.github.io/retrofit/)
+- **GitHub Actions Android Workflow**: [Automated Build Android App Action](https://github.com/marketplace/actions/automated-build-android-app-with-github-action)
+
+---
+*IMPILO23 SA — Nurturing Health & Nature.*
