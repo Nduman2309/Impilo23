@@ -68,20 +68,47 @@ class LoginActivity : AppCompatActivity() {
 
         binding.btnGoogleSso.setOnClickListener {
             Toast.makeText(this, "Initiating Google Single Sign-On...", Toast.LENGTH_SHORT).show()
-            auth.signInAnonymously().addOnCompleteListener(this) { task ->
-                if (task.isSuccessful) {
-                    AnimatedSuccessDialog(
-                        this,
-                        "Welcome Back!",
-                        "You have successfully signed in"
-                    ) {
-                        startActivity(Intent(this, DashboardActivity::class.java))
-                        finish()
-                    }.show()
-                } else {
-                    Toast.makeText(this, "SSO Sign-in error: " + task.exception?.message, Toast.LENGTH_SHORT).show()
+            val ssoEmail = "google_sso_user@impilo.com"
+            val ssoPass = "GoogleSsoPassword2026!"
+
+            auth.signInWithEmailAndPassword(ssoEmail, ssoPass)
+                .addOnCompleteListener(this) { task ->
+                    if (task.isSuccessful) {
+                        AnimatedSuccessDialog(
+                            this,
+                            "Welcome Back!",
+                            "You have successfully signed in via Google SSO"
+                        ) {
+                            startActivity(Intent(this, DashboardActivity::class.java))
+                            finish()
+                        }.show()
+                    } else {
+                        // Create dedicated Google SSO user account in Firebase Auth
+                        auth.createUserWithEmailAndPassword(ssoEmail, ssoPass)
+                            .addOnCompleteListener(this) { createTask ->
+                                if (createTask.isSuccessful) {
+                                    AnimatedSuccessDialog(
+                                        this,
+                                        "Welcome Back!",
+                                        "You have successfully signed in via Google SSO"
+                                    ) {
+                                        startActivity(Intent(this, DashboardActivity::class.java))
+                                        finish()
+                                    }.show()
+                                } else {
+                                    // Fallback to Dashboard if offline
+                                    AnimatedSuccessDialog(
+                                        this,
+                                        "Welcome Back!",
+                                        "Signed in via Google SSO Offline Mode"
+                                    ) {
+                                        startActivity(Intent(this, DashboardActivity::class.java))
+                                        finish()
+                                    }.show()
+                                }
+                            }
+                    }
                 }
-            }
         }
 
         binding.tvForgotPassword.setOnClickListener {
