@@ -39,6 +39,21 @@
             android:windowSoftInputMode="adjustResize" />
 
         <activity
+            android:name=".ui.HealthHubActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+
+        <activity
+            android:name=".ui.GardenHubActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+
+        <activity
+            android:name=".ui.ChallengesActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+
+        <activity
             android:name=".ui.SettingsActivity"
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />

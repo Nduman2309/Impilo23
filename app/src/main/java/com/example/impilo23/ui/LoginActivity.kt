@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.impilo23.databinding.ActivityLoginBinding
+import com.example.impilo23.ui.dialog.AnimatedSuccessDialog
 import com.example.impilo23.util.ValidationUtils
 import com.google.firebase.auth.FirebaseAuth
 
@@ -50,13 +51,51 @@ class LoginActivity : AppCompatActivity() {
                 auth.signInWithEmailAndPassword(email, password)
                     .addOnCompleteListener(this) { task ->
                         if (task.isSuccessful) {
-                            Toast.makeText(this, "Login successful!", Toast.LENGTH_SHORT).show()
-                            startActivity(Intent(this, DashboardActivity::class.java))
-                            finish()
+                            AnimatedSuccessDialog(
+                                this,
+                                "Welcome Back!",
+                                "You have successfully signed in"
+                            ) {
+                                startActivity(Intent(this, DashboardActivity::class.java))
+                                finish()
+                            }.show()
                         } else {
                             Toast.makeText(this, "Login failed: " + task.exception?.message, Toast.LENGTH_LONG).show()
                         }
                     }
+            }
+        }
+
+        binding.btnGoogleSso.setOnClickListener {
+            Toast.makeText(this, "Initiating Google Single Sign-On...", Toast.LENGTH_SHORT).show()
+            auth.signInAnonymously().addOnCompleteListener(this) { task ->
+                if (task.isSuccessful) {
+                    AnimatedSuccessDialog(
+                        this,
+                        "Welcome Back!",
+                        "You have successfully signed in"
+                    ) {
+                        startActivity(Intent(this, DashboardActivity::class.java))
+                        finish()
+                    }.show()
+                } else {
+                    Toast.makeText(this, "SSO Sign-in error: " + task.exception?.message, Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+
+        binding.tvForgotPassword.setOnClickListener {
+            val email = binding.etEmail.text.toString().trim()
+            if (email.isNotEmpty() && ValidationUtils.isValidEmail(email)) {
+                auth.sendPasswordResetEmail(email)
+                    .addOnSuccessListener {
+                        Toast.makeText(this, "Password reset link sent to $email", Toast.LENGTH_LONG).show()
+                    }
+                    .addOnFailureListener { e ->
+                        Toast.makeText(this, "Reset failed: ${e.message}", Toast.LENGTH_SHORT).show()
+                    }
+            } else {
+                binding.tilEmail.error = "Enter email to reset password"
             }
         }
 

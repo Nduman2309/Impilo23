@@ -1,0 +1,518 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    android:background="@color/brand_sage_bg">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="20dp"
+        android:paddingBottom="44dp">
+
+        <!-- Header Titles -->
+        <TextView
+            android:id="@+id/tvGardenHeader"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Garden Hub"
+            android:textSize="26sp"
+            android:textStyle="bold"
+            android:textColor="@color/brand_forest_dark"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/tvGardenSub"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Nurture your green sanctuary"
+            android:textSize="14sp"
+            android:textColor="@color/brand_forest_primary"
+            android:layout_marginTop="2dp"
+            app:layout_constraintTop_toBottomOf="@id/tvGardenHeader"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <!-- Flower Settings Icon -->
+        <ImageButton
+            android:id="@+id/btnGardenSettings"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:background="@drawable/bg_circle_icon"
+            android:src="@drawable/ic_flower_bed"
+            android:contentDescription="Garden Settings"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <!-- Top Metric Summary Cards Row -->
+        <LinearLayout
+            android:id="@+id/layoutTopMetrics"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="3"
+            android:layout_marginTop="20dp"
+            app:layout_constraintTop_toBottomOf="@id/tvGardenSub">
+
+            <!-- Card 1: Active Beds -->
+            <com.example.impilo23.ui.custom.BreathingCardView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginEnd="6dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    android:padding="16dp">
+
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:src="@drawable/ic_flower_bed" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="3"
+                        android:textSize="22sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/brand_forest_dark"
+                        android:layout_marginTop="4dp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Active Beds"
+                        android:textSize="11sp"
+                        android:textColor="@color/brand_forest_primary"
+                        android:layout_marginTop="2dp" />
+                </LinearLayout>
+            </com.example.impilo23.ui.custom.BreathingCardView>
+
+            <!-- Card 2: To Water -->
+            <com.example.impilo23.ui.custom.BreathingCardView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginHorizontal="3dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    android:padding="16dp">
+
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:src="@drawable/ic_water_drop" />
+
+                    <TextView
+                        android:id="@+id/tvToWaterCount"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="5"
+                        android:textSize="22sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/brand_forest_dark"
+                        android:layout_marginTop="4dp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="To Water"
+                        android:textSize="11sp"
+                        android:textColor="@color/brand_forest_primary"
+                        android:layout_marginTop="2dp" />
+                </LinearLayout>
+            </com.example.impilo23.ui.custom.BreathingCardView>
+
+            <!-- Card 3: Garden XP -->
+            <com.example.impilo23.ui.custom.BreathingCardView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginStart="6dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    android:padding="16dp">
+
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:src="@drawable/ic_star_xp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="1.2k"
+                        android:textSize="22sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/brand_forest_dark"
+                        android:layout_marginTop="4dp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Garden XP"
+                        android:textSize="11sp"
+                        android:textColor="@color/brand_forest_primary"
+                        android:layout_marginTop="2dp" />
+                </LinearLayout>
+            </com.example.impilo23.ui.custom.BreathingCardView>
+        </LinearLayout>
+
+        <!-- "My Gardens" Section -->
+        <TextView
+            android:id="@+id/tvMyGardensTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="My Gardens"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="@color/brand_text_dark"
+            android:layout_marginTop="24dp"
+            app:layout_constraintTop_toBottomOf="@id/layoutTopMetrics"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/btnViewAllGardens"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="View All"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:textColor="@color/brand_forest_primary"
+            android:padding="4dp"
+            app:layout_constraintTop_toTopOf="@id/tvMyGardensTitle"
+            app:layout_constraintBottom_toBottomOf="@id/tvMyGardensTitle"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <!-- Garden Crop Card 1: Backyard Vegetable Patch -->
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cardGarden1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/Widget.Impilo.Card"
+            android:layout_marginTop="12dp"
+            app:layout_constraintTop_toBottomOf="@id/tvMyGardensTitle">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="20dp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/crop1Title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Backyard Vegetable Patch"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/brand_forest_dark" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Zone 9b • South Africa"
+                        android:textSize="13sp"
+                        android:textColor="@color/brand_forest_primary"
+                        android:layout_below="@id/crop1Title"
+                        android:layout_marginTop="2dp" />
+
+                    <!-- Status Badge: Healthy -->
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Healthy"
+                        android:textSize="12sp"
+                        android:textStyle="bold"
+                        android:textColor="#2D6A4F"
+                        android:background="@drawable/bg_badge_healthy"
+                        android:paddingHorizontal="12dp"
+                        android:paddingVertical="4dp"
+                        android:layout_alignParentEnd="true" />
+                </RelativeLayout>
+
+                <!-- Crop Details Row -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:layout_marginTop="16dp">
+
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/cardCrop1Img"
+                        android:layout_width="72dp"
+                        android:layout_height="72dp"
+                        app:cardCornerRadius="16dp"
+                        app:cardBackgroundColor="#D8F3DC"
+                        app:strokeWidth="0dp">
+
+                        <ImageView
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:layout_gravity="center"
+                            android:src="@drawable/ic_flower_bed" />
+                    </com.google.android.material.card.MaterialCardView>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:layout_marginStart="16dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Tomatoes &amp; Basil"
+                            android:textSize="16sp"
+                            android:textStyle="bold"
+                            android:textColor="@color/brand_text_dark" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Flowering Stage"
+                            android:textSize="13sp"
+                            android:textColor="@color/brand_forest_primary"
+                            android:layout_marginTop="2dp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="🕒 12 days to harvest"
+                            android:textSize="12sp"
+                            android:textColor="@color/brand_forest_primary"
+                            android:layout_marginTop="4dp" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/brand_border"
+                    android:layout_marginVertical="16dp" />
+
+                <!-- Action Buttons -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical">
+
+                    <TextView
+                        android:id="@+id/btnCrop1Water"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="💧 Water"
+                        android:textSize="13sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/brand_text_dark"
+                        android:padding="8dp" />
+
+                    <TextView
+                        android:id="@+id/btnCrop1Sun"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="⚡ Sun"
+                        android:textSize="13sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/brand_text_dark"
+                        android:padding="8dp"
+                        android:layout_marginStart="12dp" />
+
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="1dp"
+                        android:layout_weight="1" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnCrop1Details"
+                        android:layout_width="wrap_content"
+                        android:layout_height="40dp"
+                        android:text="Details"
+                        android:textSize="13sp"
+                        style="@style/Widget.Impilo.PillButton" />
+                </LinearLayout>
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- Garden Crop Card 2: Balcony Herb Spiral -->
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cardGarden2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/Widget.Impilo.Card"
+            android:layout_marginTop="16dp"
+            app:layout_constraintTop_toBottomOf="@id/cardGarden1">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="20dp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/crop2Title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Balcony Herb Spiral"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/brand_forest_dark" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Potted • Indoor/Outdoor"
+                        android:textSize="13sp"
+                        android:textColor="@color/brand_forest_primary"
+                        android:layout_below="@id/crop2Title"
+                        android:layout_marginTop="2dp" />
+
+                    <!-- Status Badge: Needs Care -->
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Needs Care"
+                        android:textSize="12sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/brand_accent_peach_text"
+                        android:background="@drawable/bg_badge_care"
+                        android:paddingHorizontal="12dp"
+                        android:paddingVertical="4dp"
+                        android:layout_alignParentEnd="true" />
+                </RelativeLayout>
+
+                <!-- Crop Details Row -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:layout_marginTop="16dp">
+
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/cardCrop2Img"
+                        android:layout_width="72dp"
+                        android:layout_height="72dp"
+                        app:cardCornerRadius="16dp"
+                        app:cardBackgroundColor="#FFF3E0"
+                        app:strokeWidth="0dp">
+
+                        <ImageView
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:layout_gravity="center"
+                            android:src="@drawable/ic_flower_bed" />
+                    </com.google.android.material.card.MaterialCardView>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:layout_marginStart="16dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Rosemary &amp; Mint"
+                            android:textSize="16sp"
+                            android:textStyle="bold"
+                            android:textColor="@color/brand_text_dark" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Establishing"
+                            android:textSize="13sp"
+                            android:textColor="@color/brand_forest_primary"
+                            android:layout_marginTop="2dp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="🕒 45 days to harvest"
+                            android:textSize="12sp"
+                            android:textColor="@color/brand_forest_primary"
+                            android:layout_marginTop="4dp" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/brand_border"
+                    android:layout_marginVertical="16dp" />
+
+                <!-- Action Buttons -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical">
+
+                    <TextView
+                        android:id="@+id/btnCrop2Water"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="💧 Water"
+                        android:textSize="13sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/brand_text_dark"
+                        android:padding="8dp" />
+
+                    <TextView
+                        android:id="@+id/btnCrop2Sun"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="⚡ Sun"
+                        android:textSize="13sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/brand_text_dark"
+                        android:padding="8dp"
+                        android:layout_marginStart="12dp" />
+                </LinearLayout>
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- Floating Add Crop Pill Button -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnAddCropPill"
+            android:layout_width="wrap_content"
+            android:layout_height="54dp"
+            android:text="Add Crop"
+            android:textSize="15sp"
+            style="@style/Widget.Impilo.PillButton"
+            app:icon="@drawable/ic_add"
+            app:iconGravity="textStart"
+            app:iconPadding="8dp"
+            android:layout_marginTop="24dp"
+            app:layout_constraintTop_toBottomOf="@id/cardGarden2"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

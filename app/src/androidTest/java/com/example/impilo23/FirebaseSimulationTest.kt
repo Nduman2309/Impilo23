@@ -14,7 +14,7 @@ import kotlin.random.Random
 /**
  * AUTOMATED SIMULATION SCRIPT
  * This test will automatically navigate the UI, register a test user,
- * and push a health log to your Firebase console.
+ * navigate to Health Hub, and push health logs.
  */
 @RunWith(AndroidJUnit4::class)
 @LargeTest
@@ -32,7 +32,6 @@ class FirebaseSimulationTest {
         onView(withId(R.id.btnGoToRegister)).perform(click())
 
         // 3. Fill in Registration Details
-        // We use a random number in the email so every simulation creates a fresh user
         val randomId = Random.nextInt(1000, 9999)
         val testEmail = "test_user_$randomId@impilo.com"
 
@@ -42,23 +41,22 @@ class FirebaseSimulationTest {
         onView(withId(R.id.etWaterGoal)).perform(replaceText("3000"), closeSoftKeyboard())
         onView(withId(R.id.etWeightGoal)).perform(replaceText("85.0"), closeSoftKeyboard())
 
-        // 4. Click Register (This creates the 'users' node in Firebase)
+        // 4. Click Register
         onView(withId(R.id.btnRegister)).perform(click())
 
-        // Wait a few seconds for the network and navigation
-        Thread.sleep(5000)
+        // Wait for registration and navigation
+        Thread.sleep(4000)
 
-        // 5. Log Health Metrics in Dashboard
-        onView(withId(R.id.etLogWater)).perform(typeText("1500"), closeSoftKeyboard())
-        onView(withId(R.id.etLogWeight)).perform(typeText("84.2"), closeSoftKeyboard())
-        onView(withId(R.id.etLogHeartRate)).perform(typeText("72"), closeSoftKeyboard())
-        onView(withId(R.id.etLogSys)).perform(typeText("120"), closeSoftKeyboard())
-        onView(withId(R.id.etLogDia)).perform(typeText("80"), closeSoftKeyboard())
+        // 5. Navigate to Health Hub
+        onView(withId(R.id.btnNavHealth)).perform(click())
 
-        // 6. Save Logs (This creates the 'health_logs' node in Firebase)
-        onView(withId(R.id.btnSaveMetrics)).perform(click())
+        // Wait for Health Hub to open
+        Thread.sleep(2000)
 
-        // Final wait to ensure sync is finished before test closes
-        Thread.sleep(3000)
+        // 6. Log Water Intake
+        onView(withId(R.id.btnLogWaterPill)).perform(click())
+
+        // Final wait to finish sync
+        Thread.sleep(2000)
     }
 }

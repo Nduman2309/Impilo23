@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "774199110549",
+    "firebase_url": "https://impilo23-default-rtdb.europe-west1.firebasedatabase.app",
     "project_id": "impilo23",
     "storage_bucket": "impilo23.firebasestorage.app"
   },
@@ -12,7 +13,12 @@
           "package_name": "com.example.Impilo23"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "774199110549-ks5ubdi3hqr6k6jupeq94th81sgp0cfv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyDcq9Y88l8oqbwWkdlPJcBjP1lDe5xrGlQ"
@@ -20,7 +26,12 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "774199110549-ks5ubdi3hqr6k6jupeq94th81sgp0cfv.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     }

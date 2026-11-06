@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:padding="28dp"
+    android:background="@drawable/bg_dialog_rounded">
+
+    <!-- Animated Trophy / Star Badge -->
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cardStarBadge"
+        android:layout_width="88dp"
+        android:layout_height="88dp"
+        app:cardCornerRadius="44dp"
+        app:cardBackgroundColor="#FFF3E0"
+        app:strokeColor="@color/brand_gold"
+        app:strokeWidth="2dp">
+
+        <ImageView
+            android:id="@+id/ivStar"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_gravity="center"
+            android:src="@drawable/ic_star_xp"
+            android:contentDescription="Star" />
+    </com.google.android.material.card.MaterialCardView>
+
+    <TextView
+        android:id="@+id/tvCongratsTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Congratulations! 🎉"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        android:textColor="@color/brand_forest_dark"
+        android:layout_marginTop="20dp" />
+
+    <TextView
+        android:id="@+id/tvTaskCompletedTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Task Completed: Hydration Hero"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        android:textColor="@color/brand_text_dark"
+        android:gravity="center"
+        android:layout_marginTop="8dp" />
+
+    <TextView
+        android:id="@+id/tvRewardXpBadge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="+50 XP Granted!"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        android:textColor="@color/brand_forest_primary"
+        android:background="@drawable/bg_badge_healthy"
+        android:paddingHorizontal="16dp"
+        android:paddingVertical="8dp"
+        android:layout_marginTop="12dp" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnClaimCongrats"
+        android:layout_width="match_parent"
+        android:layout_height="54dp"
+        android:text="Claim Reward &amp; Continue"
+        android:textSize="15sp"
+        style="@style/Widget.Impilo.PillButton"
+        android:layout_marginTop="24dp" />
+</LinearLayout>
